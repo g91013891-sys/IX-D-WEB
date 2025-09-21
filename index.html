@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Web Kelas IX-D Final</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif;}
-body{background:#0f172a;color:#fff;overflow:hidden;position:relative;height:100vh;font-size:14px;transition:0.5s;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins', sans-serif;}
+body{background:#0f172a;color:#fff;overflow-x:hidden;position:relative;min-height:100vh;font-size:14px;transition:0.5s;padding-bottom:60px;}
 /* Sidebar */
 .sidebar{
   position:fixed;top:0;left:0;width:250px;height:100%;background:#1e293b;padding:15px;
@@ -26,56 +26,341 @@ body{background:#0f172a;color:#fff;overflow:hidden;position:relative;height:100v
 .overlay.active{display:block;}
 
 /* Dashboard */
-.dashboard{padding:15px;text-align:center;margin-left:0;}
-.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:15px;}
+.dashboard{padding:15px;text-align:center;margin-left:0;min-height:calc(100vh - 60px);}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin-top:20px;}
 .card{
-  background:#1e293b;padding:15px;border-radius:15px;text-align:center;
-  box-shadow:0 0 10px rgba(34,211,238,0.7);transition:0.3s;cursor:pointer;
+  background: linear-gradient(145deg, #1e293b, #2d3748);
+  padding:15px;border-radius:15px;text-align:center;
+  box-shadow:0 8px 15px rgba(0,0,0,0.2);
+  transition:all 0.3s ease;cursor:pointer;
+  min-height:130px;display:flex;flex-direction:column;justify-content:center;align-items:center;
+  position:relative;
+  overflow:hidden;
+  border: 1px solid rgba(255,255,255,0.1);
 }
-.card:active{box-shadow:0 0 20px #22d3ee,0 0 30px #facc15,0 0 40px #a855f7;}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(34, 211, 238, 0.1) 0%,
+    rgba(250, 204, 21, 0.05) 50%,
+    rgba(168, 85, 247, 0.1) 100%
+  );
+  z-index: 1;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow:0 10px 20px rgba(0,0,0,0.3);
+}
+.card:active {
+  transform: translateY(2px);
+}
+
+.card-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.card-icon{
+  font-size:28px;
+  margin-bottom:8px;
+  display: inline-block;
+  background: linear-gradient(135deg, #22d3ee, #facc15, #a855f7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 2px 5px rgba(0,0,0,0.4));
+}
+.card-title{
+  font-size:13px;
+  margin-bottom:8px;
+  color: #cbd5e1;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+.card-value{
+  font-size:22px;
+  font-weight:bold;
+  background:linear-gradient(135deg, #22d3ee, #facc15, #a855f7);
+  -webkit-background-clip:text;
+  color:transparent;
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,0.5));
+  margin-top: 3px;
+}
 
 /* Planet Saturnus */
 .planet{
-  width:80px;height:80px;border-radius:50%;
-  background:radial-gradient(circle at 30% 30%,#facc15,#eab308);margin:12px auto;
+  width:60px;height:60px;border-radius:50%;
+  background:radial-gradient(circle at 30% 30%,#facc15,#eab308);margin:10px auto;
   position:relative;animation:spin 8s linear infinite;
+  box-shadow: 0 0 15px #facc15, 0 0 30px rgba(250, 204, 21, 0.3);
 }
 .planet::after{
-  content:"";position:absolute;top:50%;left:-20px;width:120px;height:10px;border:2px solid rgba(255,255,255,0.7);
+  content:"";position:absolute;top:50%;left:-15px;width:90px;height:8px;border:2px solid rgba(255,255,255,0.7);
   border-radius:50%;transform:translateY(-50%) rotate(20deg);
 }
 @keyframes spin{0%{transform:rotate(0);}100%{transform:rotate(360deg);}}
 
-/* Popup */
+/* Popup - Gaya Baru Gen Z */
 .popup{
   position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
   background:#111827;padding:15px;border-radius:15px;
-  width:90%;max-width:350px;max-height:70vh;overflow-y:auto;z-index:1100;display:none;
-  box-shadow:0 0 20px #22d3ee,0 0 30px #facc15,0 0 40px #a855f7;
+  width:90%;max-width:350px;max-height:80vh;overflow-y:auto;z-index:1100;display:none;
+  box-shadow:0 0 15px #22d3ee,0 0 20px #facc15,0 0 30px #a855f7;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  background-image: linear-gradient(135deg, #111827, #1e293b), 
+                    linear-gradient(135deg, #22d3ee, #facc15, #a855f7);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
 }
 .popup.active{display:block;}
-.popup .close-btn{float:right;cursor:pointer;color:#ef4444;font-size:20px;}
-.popup ul{list-style:none;margin-top:10px;padding-left:0;}
+.popup .close-btn{float:right;cursor:pointer;color:#ef4444;font-size:20px;transition:transform 0.3s;}
+.popup .close-btn:hover{transform:scale(1.2);}
+.popup h2{
+  text-align:center;
+  margin-bottom:12px;
+  font-size:18px;
+  background:linear-gradient(90deg,#22d3ee,#facc15,#a855f7);
+  -webkit-background-clip:text;
+  color:transparent;
+  font-weight:bold;
+  text-shadow:0 2px 3px rgba(0,0,0,0.3);
+}
+
+/* Container untuk daftar */
+.list-container {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Item untuk data siswa dan struktur */
+.list-item {
+  background: rgba(255,255,255,0.05);
+  padding: 10px 12px;
+  border-radius: 10px;
+  transition: all 0.3s;
+  border-left: 2px solid #22d3ee;
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+}
+.list-item:hover {
+  background: rgba(34,211,238,0.15);
+  transform: translateX(5px);
+}
+.number-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(135deg, #22d3ee, #a855f7);
+  color: white;
+  border-radius: 50%;
+  font-weight: bold;
+  margin-right: 8px;
+  flex-shrink: 0;
+  font-size: 12px;
+}
+
+/* Kotak untuk jadwal dan piket */
+.day-box {
+  background: rgba(255,255,255,0.05);
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 10px;
+  border: 1px solid rgba(34,211,238,0.3);
+  transition: all 0.3s;
+  font-size: 13px;
+}
+.day-box:hover {
+  background: rgba(34,211,238,0.1);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+.day-header {
+  font-weight: bold;
+  margin-bottom: 6px;
+  color: #facc15;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+.day-header::before {
+  content: "📌";
+}
+.day-content {
+  padding-left: 8px;
+  border-left: 2px dashed #a855f7;
+  margin-left: 4px;
+}
 
 /* Gelembung */
 .bubble{
-  position:absolute;bottom:0;width:20px;height:20px;background:rgba(34,211,238,0.7);border-radius:50%;
+  position:absolute;bottom:0;width:15px;height:15px;background:rgba(34,211,238,0.7);border-radius:50%;
   animation:rise 6s linear infinite;cursor:pointer;
 }
 @keyframes rise{0%{transform:translateY(0);}100%{transform:translateY(-100vh);}}
 
 /* Welcome */
-h1{font-size:18px;background:linear-gradient(90deg,#22d3ee,#facc15,#a855f7);-webkit-background-clip:text;color:transparent;margin:10px 0;}
+h1{font-size:16px;background:linear-gradient(90deg,#22d3ee,#facc15,#a855f7);-webkit-background-clip:text;color:transparent;margin:12px 0;letter-spacing:0.5px;}
 
 /* Scroll popup */
-.popup::-webkit-scrollbar{width:6px;}
-.popup::-webkit-scrollbar-thumb{background:#22d3ee;border-radius:3px;}
+.popup::-webkit-scrollbar{width:5px;}
+.popup::-webkit-scrollbar-thumb{background:linear-gradient(to bottom, #22d3ee, #a855f7);border-radius:3px;}
 .popup::-webkit-scrollbar-track{background:#111827;}
+
+/* Input dan button gaya baru */
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 6px 0;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  background: #1e293b;
+  color: white;
+  outline: none;
+  font-size: 13px;
+}
+input:focus, textarea:focus {
+  border-color: #22d3ee;
+  box-shadow: 0 0 0 2px rgba(34,211,238,0.3);
+}
+button {
+  background: linear-gradient(90deg, #22d3ee, #a855f7);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s;
+  width: 100%;
+  margin-top: 8px;
+  font-size: 13px;
+}
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(34,211,238,0.3);
+}
+
+/* Emoji dan ikon */
+.emoji {
+  margin-right: 4px;
+  font-size: 14px;
+}
+
+/* Footer */
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #1e293b;
+  padding: 12px;
+  text-align: center;
+  border-top: 1px solid rgba(34,211,238,0.3);
+  z-index: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.footer-info {
+  font-size: 11px;
+  color: #cbd5e1;
+  display: flex;
+  gap: 12px;
+}
+.footer-info span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.footer-year::before {
+  content: "📅";
+}
+.footer-class::before {
+  content: "🏫";
+}
+.footer-school::before {
+  content: "🎓";
+}
+
+/* Responsif untuk footer */
+@media (max-width: 768px) {
+  footer {
+    flex-direction: column;
+    gap: 6px;
+    padding: 8px;
+  }
+  .footer-info {
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .cards {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .card {
+    min-height: 120px;
+    padding: 15px;
+  }
+  
+  .card-icon {
+    font-size: 26px;
+  }
+  
+  .card-value {
+    font-size: 20px;
+  }
+}
+
+/* Efek neon untuk teks */
+.neon-text {
+  text-shadow: 0 0 4px #22d3ee, 0 0 8px #22d3ee, 0 0 12px #22d3ee, 0 0 16px #a855f7;
+}
+
+/* Animasi untuk icon card */
+.card-icon {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+/* Efek cahaya pada card */
+.card:nth-child(1) {
+  border-top: 2px solid rgba(34, 211, 238, 0.5);
+}
+.card:nth-child(2) {
+  border-top: 2px solid rgba(250, 204, 21, 0.5);
+}
+.card:nth-child(3) {
+  border-top: 2px solid rgba(239, 68, 68, 0.5);
+}
+.card:nth-child(4) {
+  border-top: 2px solid rgba(168, 85, 247, 0.5);
+}
 </style>
 </head>
 <body>
 
-<div class="menu-btn" style="position:absolute;top:10px;left:10px;font-size:24px;cursor:pointer;">&#9776;</div>
+<div class="menu-btn" style="position:absolute;top:10px;left:10px;font-size:22px;cursor:pointer;">&#9776;</div>
 
 <div class="sidebar" id="sidebar">
   <div class="sidebar-header">
@@ -83,13 +368,13 @@ h1{font-size:18px;background:linear-gradient(90deg,#22d3ee,#facc15,#a855f7);-web
     <span class="close-sidebar" onclick="closeSidebar()">❌</span>
   </div>
   <ul>
-    <li><a onclick="openPopup('siswa')">Data Siswa</a></li>
-    <li><a onclick="openPopup('jadwal')">Jadwal Pelajaran</a></li>
-    <li><a onclick="openPopup('piket')">Piket Kelas</a></li>
-    <li><a onclick="openPopup('struktur')">Struktur Kelas</a></li>
-    <li><a onclick="openServer()">Server</a></li>
-    <li><a onclick="openEditor()">Edit Konten</a></li>
-    <li><a onclick="logout()">Logout</a></li>
+    <li><a onclick="openPopup('siswa')">👥 Data Siswa</a></li>
+    <li><a onclick="openPopup('jadwal')">📅 Jadwal Pelajaran</a></li>
+    <li><a onclick="openPopup('piket')">🔔 Piket Kelas</a></li>
+    <li><a onclick="openPopup('struktur')">🏛️ Struktur Kelas</a></li>
+    <li><a onclick="openServer()">🖥️ Server</a></li>
+    <li><a onclick="openEditor()">✏️ Edit Konten</a></li>
+    <li><a onclick="logout()">🚪 Logout</a></li>
   </ul>
 </div>
 
@@ -97,39 +382,90 @@ h1{font-size:18px;background:linear-gradient(90deg,#22d3ee,#facc15,#a855f7);-web
 
 <div class="dashboard">
   <div class="planet"></div>
-  <h1>Selamat Datang di Web Kelas IX-D</h1>
+  <h1 class="neon-text">Selamat Datang di Web Kelas IX-D</h1>
   <div class="cards">
-    <div class="card">👥 Total Siswa</div>
-    <div class="card">📚 Mata Pelajaran</div>
-    <div class="card">🔔 Piket Kelas</div>
-    <div class="card">📅 Hari Ini</div>
+    <div class="card" onclick="openPopup('siswa')">
+      <div class="card-content">
+        <div class="card-icon">👥</div>
+        <div class="card-title">Total Siswa</div>
+        <div class="card-value" id="total-siswa">30</div>
+      </div>
+    </div>
+    <div class="card" onclick="openPopup('jadwal')">
+      <div class="card-content">
+        <div class="card-icon">📚</div>
+        <div class="card-title">Mata Pelajaran</div>
+        <div class="card-value" id="total-mapel">15</div>
+      </div>
+    </div>
+    <div class="card" onclick="openPopup('piket')">
+      <div class="card-content">
+        <div class="card-icon">🔔</div>
+        <div class="card-title">Piket Kelas</div>
+        <div class="card-value">6</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-content">
+        <div class="card-icon">📅</div>
+        <div class="card-title">Hari Ini</div>
+        <div class="card-value" id="hari-ini">Senin</div>
+      </div>
+    </div>
   </div>
 </div>
 
 <!-- Popups -->
-<div id="popup-siswa" class="popup"><span class="close-btn" onclick="closePopup('siswa')">&times;</span><h2>Data Siswa</h2><ul id="list-siswa"></ul></div>
-<div id="popup-jadwal" class="popup"><span class="close-btn" onclick="closePopup('jadwal')">&times;</span><h2>Jadwal</h2><ul id="list-jadwal"></ul></div>
-<div id="popup-piket" class="popup"><span class="close-btn" onclick="closePopup('piket')">&times;</span><h2>Piket</h2><ul id="list-piket"></ul></div>
-<div id="popup-struktur" class="popup"><span class="close-btn" onclick="closePopup('struktur')">&times;</span><h2>Struktur Kelas</h2><ul id="list-struktur"></ul></div>
+<div id="popup-siswa" class="popup">
+  <span class="close-btn" onclick="closePopup('siswa')">&times;</span>
+  <h2>👥 Data Siswa</h2>
+  <div class="list-container" id="list-siswa"></div>
+</div>
+
+<div id="popup-jadwal" class="popup">
+  <span class="close-btn" onclick="closePopup('jadwal')">&times;</span>
+  <h2>📅 Jadwal Pelajaran</h2>
+  <div class="list-container" id="list-jadwal"></div>
+</div>
+
+<div id="popup-piket" class="popup">
+  <span class="close-btn" onclick="closePopup('piket')">&times;</span>
+  <h2>🔔 Piket Kelas</h2>
+  <div class="list-container" id="list-piket"></div>
+</div>
+
+<div id="popup-struktur" class="popup">
+  <span class="close-btn" onclick="closePopup('struktur')">&times;</span>
+  <h2>🏛️ Struktur Kelas</h2>
+  <div class="list-container" id="list-struktur"></div>
+</div>
 
 <!-- Server -->
 <div id="popup-server" class="popup">
   <span class="close-btn" onclick="closePopup('server')">&times;</span>
-  <h2>Server Control</h2>
+  <h2>🖥️ Server Control</h2>
   <p>Masukkan email & password admin untuk ON/OFF server</p>
-  <input type="text" id="serverEmail" placeholder="Email">
-  <input type="password" id="serverPass" placeholder="Password">
-  <button onclick="toggleServer()">ON/OFF</button>
-  <p id="serverStatus"></p>
+  <input type="text" id="serverEmail" placeholder="📧 Email">
+  <input type="password" id="serverPass" placeholder="🔒 Password">
+  <button onclick="toggleServer()">ON/OFF Server</button>
+  <p id="serverStatus" style="margin-top:12px;text-align:center;"></p>
 </div>
 
 <!-- Editor -->
 <div id="editorPopup" class="popup">
   <span class="close-btn" onclick="closeEditor()">&times;</span>
-  <h2>Edit Konten Admin</h2>
-  <textarea id="editorArea"></textarea>
-  <button onclick="saveEditor()">Simpan</button>
+  <h2>✏️ Edit Konten Admin</h2>
+  <textarea id="editorArea" rows="10"></textarea>
+  <button onclick="saveEditor()">💾 Simpan</button>
 </div>
+
+<footer>
+  <div class="footer-info">
+    <span class="footer-year">Tahun: 2025</span>
+    <span class="footer-class">Kelas: IX-D</span>
+    <span class="footer-school">Sekolah: MTSN 2 BOYOLALI</span>
+  </div>
+</footer>
 
 <script>
 // Sidebar toggle
@@ -150,18 +486,89 @@ let data={
   struktur:["Ketua: Afifah","Wakil: Amira","Bendahara: Amara, Bety","Sekretaris: Yumna, Sanah"]
 };
 
+// Hitung jumlah mata pelajaran unik
+function hitungMapel() {
+  const semuaMapel = [];
+  data.jadwal.forEach(jadwal => {
+    const mapelHariIni = jadwal.split(': ')[1].split(', ');
+    mapelHariIni.forEach(mapel => {
+      if (!semuaMapel.includes(mapel.trim())) {
+        semuaMapel.push(mapel.trim());
+      }
+    });
+  });
+  return semuaMapel.length;
+}
+
+// Update card values
+document.getElementById('total-siswa').textContent = data.siswa.length;
+document.getElementById('total-mapel').textContent = hitungMapel();
+
 // Popup functions
 function openPopup(type){
   document.querySelectorAll('.popup').forEach(p=>p.classList.remove('active'));
   document.getElementById(`popup-${type}`).classList.add('active');overlay.classList.add('active');
-  let list=document.getElementById(`list-${type}`);
-  if(list){list.innerHTML='';data[type].forEach((d,i)=>list.innerHTML+=`<li>${type!=="struktur"?i+1+". ":''}${d}</li>`);}
+  let container=document.getElementById(`list-${type}`);
+  
+  if(container){
+    container.innerHTML='';
+    
+    if(type === "jadwal" || type === "piket") {
+      // Tampilan khusus untuk jadwal dan piket dengan kotak per hari
+      data[type].forEach((d, i) => {
+        const parts = d.split(": ");
+        const day = parts[0];
+        const content = parts[1];
+        
+        const dayBox = document.createElement('div');
+        dayBox.className = 'day-box';
+        
+        const dayHeader = document.createElement('div');
+        dayHeader.className = 'day-header';
+        dayHeader.textContent = day;
+        
+        const dayContent = document.createElement('div');
+        dayContent.className = 'day-content';
+        dayContent.textContent = content;
+        
+        dayBox.appendChild(dayHeader);
+        dayBox.appendChild(dayContent);
+        container.appendChild(dayBox);
+      });
+    } else if (type === "siswa") {
+      // Tampilan khusus untuk data siswa dengan angka
+      data[type].forEach((d, i) => {
+        const listItem = document.createElement('div');
+        listItem.className = 'list-item';
+        
+        const numberBadge = document.createElement('span');
+        numberBadge.className = 'number-badge';
+        numberBadge.textContent = i + 1;
+        
+        const studentName = document.createElement('span');
+        studentName.textContent = d;
+        
+        listItem.appendChild(numberBadge);
+        listItem.appendChild(studentName);
+        container.appendChild(listItem);
+      });
+    } else {
+      // Tampilan default untuk data lainnya
+      data[type].forEach((d, i) => {
+        const listItem = document.createElement('div');
+        listItem.className = 'list-item';
+        listItem.innerHTML = `<span class="emoji">${type === "struktur" ? "👤" : "👨‍🎓"}</span> ${d}`;
+        container.appendChild(listItem);
+      });
+    }
+  }
 }
+
 function closePopup(type){document.getElementById(`popup-${type}`)?.classList.remove('active');overlay.classList.remove('active');}
 
 // Editor
 function openEditor(){let email=prompt("Email admin:"),pass=prompt("Password:");if(email==="admin"&&pass==="123"){editorPopup.classList.add("active");overlay.classList.add("active");document.getElementById("editorArea").value=JSON.stringify(data,null,2);}else{alert("Salah!");}}
-function closeEditor(){editorPopup.classList.remove("active");overlay.classList.remove("active");}
+function closeEditor(){editorPopup.classList.remove("active");overlay.classList.remove('active');}
 function saveEditor(){try{data=JSON.parse(document.getElementById("editorArea").value);alert("Data tersimpan!");closeEditor();}catch(e){alert("Format salah!");}}
 
 // Logout
@@ -201,7 +608,7 @@ function ownerLogin(email,pass){
 }
 function blockScreen(){
   document.body.classList.add("blocked");
-  document.body.innerHTML="<h1 style='color:red;font-size:24px;text-align:center;margin-top:50vh;transform:translateY(-50%);'>ANDA DI BLOKIR SELAMA 10 MENIT</h1>";
+  document.body.innerHTML="<h1 style='color:red;font-size:20px;text-align:center;margin-top:50vh;transform:translateY(-50%);'>ANDA DI BLOKIR SELAMA 10 MENIT</h1>";
 }
 
 // Unblock owner via console
@@ -211,7 +618,7 @@ window.unblockOwner=()=>{localStorage.removeItem("blocked");alert("Owner bisa lo
 function showDay(){
   const dayNames=["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
   const now=new Date(new Date().toLocaleString("en-US",{timeZone:"Asia/Jakarta"}));
-  document.querySelector(".cards .card:last-child").textContent="📅 "+dayNames[now.getDay()];
+  document.getElementById("hari-ini").textContent=dayNames[now.getDay()];
 }
 setInterval(showDay,1000);
 showDay();
@@ -222,7 +629,7 @@ function openServer(){document.getElementById("popup-server").classList.add("act
 function toggleServer(){
   let email=document.getElementById("serverEmail").value;
   let pass=document.getElementById("serverPass").value;
-  if(email==="Own@Cloud.com" && pass==="230311"){serverOn=!serverOn;document.getElementById("serverStatus").textContent="Server is "+(serverOn?"ON":"OFF");alert("Server berhasil "+(serverOn?"dihidupkan":"dimatikan"));}else{alert("Email/password salah!");}
+  if(email==="own@exa.com" && pass==="230311"){serverOn=!serverOn;document.getElementById("serverStatus").textContent="Server is "+(serverOn?"ON":"OFF");alert("Server berhasil "+(serverOn?"dihidupkan":"dimatikan"));}else{alert("Email/password salah!");}
 }
 </script>
 </body>
