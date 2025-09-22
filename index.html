@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Web Kelas IX-D Final</title>
+<title>Web Kelas IX-D</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins', sans-serif;}
 body{background:#0f172a;color:#fff;overflow-x:hidden;position:relative;min-height:100vh;font-size:14px;transition:0.5s;padding-bottom:60px;}
@@ -593,7 +593,7 @@ function ownerLogin(email,pass){
   if(localStorage.getItem("blocked") && new Date().getTime() < localStorage.getItem("blocked")){
     blockScreen();return false;
   }
-  if(email==="admin" && pass==="123"){
+  if(email==="own@exa.com" && pass==="230311"){
     loginAttempts=0;
     return true;
   }else{
